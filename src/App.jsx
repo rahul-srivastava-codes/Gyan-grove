@@ -58,84 +58,97 @@ function App() {
 
   return (
     <div className="app-container">
-      <h1>Inventory Management</h1>
-      <div className="controls">
-        <input
-          type="text"
-          placeholder="Item Name"
-          name="name"
-          value={newItem.name}
-          onChange={handleInputChange}
-        />
-        <input
-          type="text"
-          placeholder="Category"
-          name="category"
-          value={newItem.category}
-          onChange={handleInputChange}
-        />
-        <input
-          type="number"
-          placeholder="Quantity"
-          name="quantity"
-          value={newItem.quantity}
-          onChange={handleInputChange}
-        />
-        <button onClick={addItem}>Add Item</button>
-      </div>
+      <h1 className="heading">Inventory Management</h1>
+      <div>
+        <div className="controls">
+          <input
+            type="text"
+            placeholder="Item Name"
+            name="name"
+            value={newItem.name}
+            onChange={handleInputChange}
+          />
+          <input
+            type="text"
+            placeholder="Category"
+            name="category"
+            value={newItem.category}
+            onChange={handleInputChange}
+          />
+          <input
+            type="number"
+            placeholder="Quantity"
+            name="quantity"
+            value={newItem.quantity}
+            onChange={handleInputChange}
+          />
+          <button id="button" onClick={addItem}>
+            Add Item
+          </button>
+        </div>
 
-      <div className="filters">
-        <input
-          type="text"
-          placeholder="Filter by Category"
-          value={filterCategory}
-          onChange={(e) => setFilterCategory(e.target.value)}
-        />
-        <button
-          onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
-        >
-          Sort by Quantity ({sortOrder})
-        </button>
-      </div>
+        <div className="filters">
+          <input
+            type="text"
+            placeholder="Filter by Category"
+            value={filterCategory}
+            onChange={(e) => setFilterCategory(e.target.value)}
+          />
+          <button
+            id="button"
+            onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
+          >
+            Sort by Quantity ({sortOrder})
+          </button>
+        </div>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Category</th>
-            <th>Quantity</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {sortedInventory.map((item) => (
-            <tr key={item.id} className={item.quantity < 10 ? "low-stock" : ""}>
-              <td>{item.name}</td>
-              <td>{item.category}</td>
-              <td>{item.quantity}</td>
-              <td>
-                <button
-                  onClick={() =>
-                    editItem(item.id, {
-                      ...item,
-                      name: prompt("Edit Name:", item.name) || item.name,
-                      category:
-                        prompt("Edit Category:", item.category) ||
-                        item.category,
-                      quantity:
-                        parseInt(prompt("Edit Quantity:", item.quantity)) ||
-                        item.quantity,
-                    })
-                  }
-                >
-                  Edit
-                </button>
-                <button onClick={() => deleteItem(item.id)}>Delete</button>
-              </td>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Category</th>
+              <th>Quantity</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {sortedInventory.map((item) => (
+              <tr
+                key={item.id}
+                className={item.quantity < 10 ? "low-stock" : ""}
+              >
+                <td>{item.name}</td>
+                <td>{item.category}</td>
+                <td>{item.quantity}</td>
+                <td>
+                  <div className="button">
+                    <button
+                      id="edit"
+                      onClick={() =>
+                        editItem(item.id, {
+                          ...item,
+                          name: prompt("Edit Name:", item.name) || item.name,
+                          category:
+                            prompt("Edit Category:", item.category) ||
+                            item.category,
+                          quantity:
+                            parseInt(prompt("Edit Quantity:", item.quantity)) ||
+                            item.quantity,
+                        })
+                      }
+                    >
+                      Edit
+                    </button>
+                    <button id="delete" onClick={() => deleteItem(item.id)}>
+                      Delete
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
